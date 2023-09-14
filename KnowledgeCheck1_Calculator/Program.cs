@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,15 @@ namespace KnowledgeCheck1_Calculator
 {
     class Program
     {
+        static Tuple<string?, string?> GetUserNumbers(string message)
+        {
+            Console.WriteLine($"Enter 2 integers to");
+            var number1 = Console.ReadLine();
+            var number2 = Console.ReadLine();
+            
+
+            return new Tuple<string?, string?>(number1, number2);
+        }
         static void Main(string[] args)
         {
 
@@ -19,13 +29,14 @@ namespace KnowledgeCheck1_Calculator
             switch (input)
             {
                 case "1":
-                    Console.WriteLine("Enter 2 integers to add");
-                    var addNumber1 = Console.ReadLine();
-                    var addNumber2 = Console.ReadLine();
+                    var result = GetUserNumbers("add");
 
-                    if (int.TryParse(addNumber1, out int addNumOne) && int.TryParse(addNumber2, out int addNumTwo))
+
+
+
+                    if (int.TryParse(result.Item1, out int addNumOne) && int.TryParse(result.Item2, out int addNumTwo))
                     {
-                        Console.Write($"{addNumber1} + {addNumber2} = ");
+                        Console.Write($"{addNumOne} + {addNumTwo} = ");
                         Console.Write(calculator.Add(addNumOne, addNumTwo));
                     }
                     else
@@ -35,13 +46,13 @@ namespace KnowledgeCheck1_Calculator
                     break;
 
                 case "2":
-                    Console.WriteLine("Enter 2 integers to subtract");
-                    var subtractNumber1 = Console.ReadLine();
-                    var subtractNumber2 = Console.ReadLine();
+                     var result2 = GetUserNumbers("subtract");
 
-                    if (int.TryParse(subtractNumber1, out int subNumOne) && int.TryParse(subtractNumber2, out int subNumTwo))
+
+
+                    if (int.TryParse(result2.Item1, out int subNumOne) && int.TryParse(result2.Item2, out int subNumTwo))
                     {
-                        Console.Write($"{subtractNumber1} - {subtractNumber2} = ");
+                        Console.Write($"{result2.Item1} - {result2.Item2} = ");
                         Console.Write(calculator.Subtract(subNumOne, subNumTwo));
                     }
                     else
@@ -51,17 +62,26 @@ namespace KnowledgeCheck1_Calculator
                     break;
 
                 case "3":
-                    // Add code here
+                    var result3 = GetUserNumbers("mulitply");
+
+
+                    if (int.TryParse(result3.Item1, out int multNumOne) && int.TryParse(result3.Item2, out int multNumTwo))
+                    {
+                        Console.Write($"{result3.Item1} * {result3.Item2} = ");
+                        Console.Write(calculator.Multiply(multNumOne, multNumTwo));
+                    }
+                    else
+                    {
+                        Console.WriteLine("One or more of the numbers is not an int");
+                    }
                     break;
 
                 case "4":
-                    Console.WriteLine("Enter 2 integers to divide");
-                    var divideNumber1 = Console.ReadLine();
-                    var divideNumber2 = Console.ReadLine();
-
-                    if (double.TryParse(divideNumber1, out double divNumOne) && double.TryParse(divideNumber2, out double divNumTwo))
+                    var result4 = GetUserNumbers("divide");
+                   
+                    if (double.TryParse(result4.Item1, out double divNumOne) && double.TryParse(result4.Item2, out double divNumTwo))
                     {
-                        Console.Write($"{divideNumber1} / {divideNumber2} = ");
+                        Console.Write($"{result4.Item1} / {result4.Item2} = ");
                         Console.Write(calculator.Divide(divNumOne, divNumTwo));
                     }
                     else
@@ -69,7 +89,7 @@ namespace KnowledgeCheck1_Calculator
                         Console.WriteLine("One or more of the numbers is not an int");
                     }
                     break;
-                    break;
+                    
 
                 default:
                     Console.WriteLine("Unknown input");
